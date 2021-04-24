@@ -1,5 +1,12 @@
 import random
 
+GERMAN = {
+            "welcome" : "\nHerzlich Willkommen!\n"
+         }
+
+ENGLISH = {
+            "welcome" : "\nwelcome!\n"
+          }
 
 class InputError(Exception):
     """Exception raised for errors in the input.
@@ -27,15 +34,23 @@ def language_selection():
 
 def main():
     user_input = None
+    language = None
     while user_input != "q":
         while True:
             try:
-                language_selection()
+                if language_selection() == '1':
+                    language = ENGLISH.copy()
+                else:
+                    language = GERMAN.copy()
                 break
             except InputError:
-                print('Please enter a valid Input')
-        user_input = input('Input: ')
+                print('\n Please enter a valid Input \n')
 
+        print(language["welcome"])
+
+        
+
+        user_input = input('input: ')
 
 if __name__ == '__main__':
     main()
