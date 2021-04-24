@@ -121,17 +121,21 @@ def password_verification(password, sentences, give_return=False):
         return False
 
 
-def password_generation(length):
+def password_generation(length, sentences):
+    if length < 8 or length > 20:
+        raise InputError(length, ' is not a valid Input')
+
     password=""
-    for i in range(length):
-        random_char_type = random.randint(0, 3)
-        char_types = {
-                        0 : string.ascii_uppercase[random.randint(0, len(string.ascii_uppercase)-1)],
-                        1 : string.ascii_lowercase[random.randint(0, len(string.ascii_lowercase)-1)],
-                        2 : string.digits[random.randint(0, len(string.digits)-1)],
-                        3 : string.punctuation[random.randint(0, len(string.punctuation)-1)]
-                     }
-        password = password + char_types[random_char_type]
+    while not password_verification(password, sentences, True):
+        for i in range(length):
+            random_char_type = random.randint(0, 3)
+            char_types = {
+                            0 : string.ascii_uppercase[random.randint(0, len(string.ascii_uppercase)-1)],
+                            1 : string.ascii_lowercase[random.randint(0, len(string.ascii_lowercase)-1)],
+                            2 : string.digits[random.randint(0, len(string.digits)-1)],
+                            3 : string.punctuation[random.randint(0, len(string.punctuation)-1)]
+                        }
+            password = password + char_types[random_char_type]
     
     print("\n" + password + "\n")
 
@@ -165,8 +169,14 @@ def main():
                 time.sleep(1)
                 print(sentences["main_menu"])
             elif user_input == '2':
-                length = int(input(sentences["length"]))
-                password_generation(length)
+                while True:
+                    try:
+                        length = int(input(sentences["length"]))
+                        password_generation(length, sentences)
+                        break
+                    except InputError:
+                        print(sentences["wrong_input"])
+
                 print(sentences["main_menu"])
             elif user_input == 'q':
                 break
