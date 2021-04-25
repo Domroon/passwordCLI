@@ -3,49 +3,49 @@ import string
 import random
 
 GERMAN = {
-            "welcome" : "\nHerzlich Willkommen!\n",
-            "requirements" : "\nFolgende Anforderungen sollte das Passwort haben:\n"
-                             "- Mindestens 8 Zeichen\n"
-                             "- Mindestens ein Großbuchstabe\n"
-                             "- Mindestens ein Kleinbuchstabe\n"
-                             "- Mindestens eine Zahl\n"
-                             "- Mindestens eine Sonderzeichen\n",
-            "main_menu" : "\n1 - Passwort Überprüfer\n"
-                          "2 - Passwort Generator\n"
-                          "q - Programm beenden\n",
-            "wrong_input" : "\nBitte gib einen gültigen Wert ein\n",
-            "password_input" : "\nBitte geben Sie ein Passwort ein: ",
-            "success" : "\nDas Passwort ist OK!",
-            "wrong_length" : "- Zu Kurz",
-            "no_uppercase" : "- Kein Großbuchstabe enthalten",
-            "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
-            "no_digit" : "- Keine Zahl enthalten",
-            "no_special" : "- Kein Sonderzeichen enthalten",
-            "length" : "Passwortlänge(8-20): "
-         }
+    "welcome" : "\nHerzlich Willkommen!\n",
+    "requirements" : "\nFolgende Anforderungen sollte das Passwort haben:\n"
+                     "- Mindestens 8 Zeichen\n"
+                     "- Mindestens ein Großbuchstabe\n"
+                     "- Mindestens ein Kleinbuchstabe\n"
+                     "- Mindestens eine Zahl\n"
+                     "- Mindestens eine Sonderzeichen\n",
+    "main_menu" : "\n1 - Passwort Überprüfer\n"
+                  "2 - Passwort Generator\n"
+                  "q - Programm beenden\n",
+    "wrong_input" : "\nBitte gib einen gültigen Wert ein\n",
+    "password_input" : "\nBitte geben Sie ein Passwort ein: ",
+    "success" : "\nDas Passwort ist OK!",
+    "wrong_length" : "- Zu Kurz",
+    "no_uppercase" : "- Kein Großbuchstabe enthalten",
+    "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
+    "no_digit" : "- Keine Zahl enthalten",
+    "no_special" : "- Kein Sonderzeichen enthalten",
+    "length" : "Passwortlänge(8-20): "
+}
 
 
 ENGLISH = {
-            "welcome" : "\nwelcome!\n",
-            "requirements" : "\nThe password should have the following requirements:\n"
-                             "- At least 8 characters\n"
-                             "- At least one capital letter\n"
-                             "- At least one lowercase letter\n"
-                             "- At least one number\n"
-                             "- At least one special character\n",
-            "main_menu" : "\n1 - Password checker\n"
-                          "2 - Password generator\n"
-                          "q - Exit program\n",
-            "wrong_input": "\nPlease enter a valid value\n",
-            "password_input": "\nPlease enter a password: ",
-            "success": "\nThe password is OK!",
-            "wrong_length": "- Too short",
-            "no_uppercase": "- No capital letter",
-            "no_lowercase": "- Contains no lower case letter",
-            "no_digit": "- Does not contain a number",
-            "no_special": "- No special characters included",
-            "length" : "Password length (8-20): "
-          }
+    "welcome" : "\nwelcome!\n",
+    "requirements" : "\nThe password should have the following requirements:\n"
+                     "- At least 8 characters\n"
+                     "- At least one capital letter\n"
+                     "- At least one lowercase letter\n"
+                     "- At least one number\n"
+                     "- At least one special character\n",
+    "main_menu" : "\n1 - Password checker\n"
+                  "2 - Password generator\n"
+                  "q - Exit program\n",
+    "wrong_input": "\nPlease enter a valid value\n",
+    "password_input": "\nPlease enter a password: ",
+    "success": "\nThe password is OK!",
+    "wrong_length": "- Too short",
+    "no_uppercase": "- No capital letter",
+    "no_lowercase": "- Contains no lower case letter",
+    "no_digit": "- Does not contain a number",
+    "no_special": "- No special characters included",
+    "length" : "Password length (8-20): "
+}
 
 
 class InputError(Exception):
