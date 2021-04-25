@@ -1,6 +1,6 @@
 import time
 import string
-import random
+from random import choice
 
 GERMAN = {
     "welcome" : "\nHerzlich Willkommen!\n",
@@ -128,17 +128,18 @@ def password_generation(length, sentences):
     if length < 8 or length > 20:
         raise InputError(length, ' is not a valid Input')
 
-    password=""
-    while not verify_password(password, sentences, True):
+    password = ""
+    while True:
         for i in range(length):
-            random_char_type = random.randint(0, 3)
-            char_types = {
-                            0 : string.ascii_uppercase[random.randint(0, len(string.ascii_uppercase)-1)],
-                            1 : string.ascii_lowercase[random.randint(0, len(string.ascii_lowercase)-1)],
-                            2 : string.digits[random.randint(0, len(string.digits)-1)],
-                            3 : string.punctuation[random.randint(0, len(string.punctuation)-1)]
-                        }
-            password = password + char_types[random_char_type]
+            all_signs = set(string.ascii_uppercase)
+            all_signs.add(string.ascii_lowercase)
+            all_signs.add(string.digits)
+            all_signs.add(string.punctuation)
+
+            password = password + choice(all_signs)
+        
+        if verify_password(password, sentences, True):
+            break
     
     print("\n" + password + "\n")
 
