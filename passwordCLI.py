@@ -82,19 +82,22 @@ def verify_password(password, sentences, give_return=False):
     if len(password) >= 8:
         length = True
 
-    for letter in password:
-        if letter in string.ascii_uppercase + "ÄÖÜ":
-            uppercase_letter = True
+    # check whether all necessary characters are included
+    password = set(password)
 
-        if letter in string.ascii_lowercase + "äöüß":
-            lowercase_letter = True
+    if password.intersection(set(string.ascii_uppercase + "ÄÖÜ")):
+        uppercase_letter = True
 
-        if letter in string.digits:
-            digit = True
+    if password.intersection(set(string.ascii_lowercase + "äöüß")):
+        lowercase_letter = True
 
-        if letter in string.punctuation:
-            special_char = True
+    if password.intersection(set(string.digits)):
+        digit = True
 
+    if password.intersection(set(string.punctuation)):
+        special_char = True
+
+    # should only be issued if required
     if not give_return:
         if not length:
             print(sentences["wrong_length"])
@@ -117,6 +120,7 @@ def verify_password(password, sentences, give_return=False):
         print(sentences["success"])
         time.sleep(1)
 
+    # the return is not necessary if the print functions have been issued
     if give_return:
         return False
 
