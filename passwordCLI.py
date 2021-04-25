@@ -23,7 +23,6 @@ GERMAN = {
     "length" : "Passwortlänge(8-20): "}
 
 
-
 ENGLISH = {
     "welcome" : "\nwelcome!\n",
     "requirements" : "\nThe password should have the following requirements:\n"
@@ -44,7 +43,6 @@ ENGLISH = {
     "no_digit": "- Does not contain a number",
     "no_special": "- No special characters included",
     "length" : "Password length (8-20): " }
-
 
 
 class InputError(Exception):
@@ -148,13 +146,13 @@ def main():
     sentences = None
 
     # Language Menu
-    while user_input != "q":
+    while True:
         while True:
             try:
                 if select_language() == '1':
-                    sentences = ENGLISH.copy()
+                    sentences = ENGLISH
                 else:
-                    sentences = GERMAN.copy()
+                    sentences = GERMAN
                 break
             except InputError:
                 print('\nPlease enter a valid Input\n')
@@ -183,6 +181,9 @@ def main():
                 break
             else:
                 print(sentences["wrong_input"])
+
+        if user_input == "q":
+            break
 
 
 if __name__ == '__main__':
