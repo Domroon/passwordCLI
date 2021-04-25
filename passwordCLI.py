@@ -62,11 +62,11 @@ class InputError(Exception):
 
 
 def select_language():
-    print(f'Choose your language: ')
-    print(f'1 - English')
-    print(f'2 - German')
+    print("Choose your language: ")
+    print("1 - English")
+    print("2 - German")
     user_input = input()
-    if (user_input != '1') and (user_input != '2'):
+    if '1' not in user_input and '2' not in user_input:
         raise InputError(user_input, ' is not a valid Input')
     
     return user_input
