@@ -21,8 +21,8 @@ GERMAN = {
     "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
     "no_digit" : "- Keine Zahl enthalten",
     "no_special" : "- Kein Sonderzeichen enthalten",
-    "length" : "Passwortlänge(8-20): "
-}
+    "length" : "Passwortlänge(8-20): "}
+
 
 
 ENGLISH = {
@@ -44,8 +44,8 @@ ENGLISH = {
     "no_lowercase": "- Contains no lower case letter",
     "no_digit": "- Does not contain a number",
     "no_special": "- No special characters included",
-    "length" : "Password length (8-20): "
-}
+    "length" : "Password length (8-20): " }
+
 
 
 class InputError(Exception):
@@ -72,7 +72,7 @@ def language_selection():
     return user_input
 
 
-def password_verification(password, sentences, give_return=False):
+def verify_password(password, sentences, give_return=False):
     length = False
     uppercase_letter = False
     lowercase_letter = False
@@ -126,7 +126,7 @@ def password_generation(length, sentences):
         raise InputError(length, ' is not a valid Input')
 
     password=""
-    while not password_verification(password, sentences, True):
+    while not verify_password(password, sentences, True):
         for i in range(length):
             random_char_type = random.randint(0, 3)
             char_types = {
@@ -165,7 +165,7 @@ def main():
         while True:
             user_input = input('input: ')
             if user_input == '1':
-                password_verification(input(sentences["password_input"]), sentences)
+                verify_password(input(sentences["password_input"]), sentences)
                 time.sleep(1)
                 print(sentences["main_menu"])
             elif user_input == '2':
