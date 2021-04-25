@@ -118,7 +118,6 @@ def verify_password(password, sentences, give_return=False):
         if give_return:
             return True
         print(sentences["success"])
-        time.sleep(1)
 
     # the return is not necessary if the print functions have been issued
     if give_return:
@@ -159,7 +158,6 @@ def main():
                 break
             except InputError:
                 print('\nPlease enter a valid Input\n')
-                time.sleep(1)
 
         print(sentences["welcome"])
 
@@ -170,7 +168,6 @@ def main():
             user_input = input('input: ')
             if user_input == '1':
                 verify_password(input(sentences["password_input"]), sentences)
-                time.sleep(1)
                 print(sentences["main_menu"])
             elif user_input == '2':
                 while True:
@@ -186,7 +183,6 @@ def main():
                 break
             else:
                 print(sentences["wrong_input"])
-                time.sleep(1)
 
 
 if __name__ == '__main__':
