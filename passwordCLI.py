@@ -61,7 +61,7 @@ class InputError(Exception):
         self.message = message
 
 
-def language_selection():
+def select_language():
     print(f'Choose your language: ')
     print(f'1 - English')
     print(f'2 - German')
@@ -148,7 +148,7 @@ def main():
     while user_input != "q":
         while True:
             try:
-                if language_selection() == '1':
+                if select_language() == '1':
                     sentences = ENGLISH.copy()
                 else:
                     sentences = GERMAN.copy()
