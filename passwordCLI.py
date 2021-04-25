@@ -131,10 +131,10 @@ def password_generation(length, sentences):
     password = ""
     while True:
         for i in range(length):
-            all_signs = set(string.ascii_uppercase)
-            all_signs.add(string.ascii_lowercase)
-            all_signs.add(string.digits)
-            all_signs.add(string.punctuation)
+            all_signs = string.ascii_uppercase
+            all_signs += string.ascii_lowercase
+            all_signs += string.digits
+            all_signs += string.punctuation
 
             password = password + choice(all_signs)
         
