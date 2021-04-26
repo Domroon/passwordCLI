@@ -1,5 +1,6 @@
 import string
 from random import choice
+import json
 
 SENTENCES = {
     'English': {
@@ -60,6 +61,18 @@ class InputError(Exception):
         self.message = message
 
 
+def load_languages():
+    with open('languages.json', 'r') as file:
+        data = json.load(file)
+    
+    # convert data to right dictionary-structure
+    selected_languages = ["English", "German"]
+    for language in selected_languages:
+        languages = dict.fromkeys([language], data[language])
+        
+    return languages
+
+
 def select_language():
     languages = list(SENTENCES)
     while True:
@@ -117,6 +130,7 @@ def password_generation(length, sentences):
 
 
 def main():
+    load_languages()
     user_input = None
     sentences = None
 
