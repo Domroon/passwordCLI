@@ -69,56 +69,24 @@ def select_language():
     return user_input
 
 
-def verify_password(password, sentences, give_return=False):
-    length = False
-    uppercase_letter = False
-    lowercase_letter = False
-    digit = False
-    special_char = False
-
-    if len(password) >= 8:
-        length = True
-
-    # check whether all necessary characters are included
+def verify_password(password):
     password = set(password)
-
-    if password.intersection(set(string.ascii_uppercase + "ÄÖÜ")):
-        uppercase_letter = True
-
-    if password.intersection(set(string.ascii_lowercase + "äöüß")):
-        lowercase_letter = True
-
-    if password.intersection(set(string.digits)):
-        digit = True
-
-    if password.intersection(set(string.punctuation)):
-        special_char = True
-
-    # should only be issued if required
-    if not give_return:
-        if not length:
-            print(sentences["wrong_length"])
-
-        if not uppercase_letter:
-            print(sentences["no_uppercase"])
-
-        if not lowercase_letter:
-            print(sentences["no_lowercase"])
-
-        if not digit:
-            print(sentences["no_digit"])
-
-        if not special_char:
-            print(sentences["no_special"])
-
-    if length and uppercase_letter and lowercase_letter and digit and special_char:
-        if give_return:
-            return True
-        print(sentences["success"])
-
-    # the return is not necessary if the print functions have been issued
-    if give_return:
-        return False
+    return [
+        message_key
+        for test_result, message_key in [
+            (len(password) >= 8, "wrong_length"),
+            *(
+                (password.intersection(characters), message_key)
+                for characters, message_key in [
+                    (string.ascii_uppercase + "ÄÖÜ", "no_uppercase"),
+                    (string.ascii_lowercase + "äöüß", "no_lowercase"),
+                    (string.digits, "no_digit"),
+                    (string.punctuation, "no_special"),
+                ]
+            ) 
+        ]
+        if not test_result
+    ]
 
 
 def password_generation(length, sentences):
@@ -164,9 +132,17 @@ def main():
 
         while True:
             user_input = input('input: ')
+
             if user_input == '1':
-                verify_password(input(sentences["password_input"]), sentences)
+                message_list = verify_password(input(sentences["password_input"]))
+                for message in message_list:
+                    print(sentences[message])
+
+                if message_list == []:
+                    print(sentences["success"])
+
                 print(sentences["main_menu"])
+
             elif user_input == '2':
                 while True:
                     try:
