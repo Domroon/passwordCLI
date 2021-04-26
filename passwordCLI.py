@@ -68,7 +68,7 @@ def load_languages():
     # convert data to right dictionary-structure
     selected_languages = ["English", "German"]
     for language in selected_languages:
-        languages = dict.fromkeys([language], data[language])
+        languages = dict.fromkeys(selected_languages, data[language])
         
     return languages
 
@@ -130,7 +130,7 @@ def password_generation(length, sentences):
 
 
 def main():
-    load_languages()
+    print(load_languages())
     user_input = None
     sentences = None
 
