@@ -1,29 +1,8 @@
 import string
 from random import choice
 
-GERMAN = {
-    "welcome" : "\nHerzlich Willkommen!\n",
-    "requirements" : "\nFolgende Anforderungen sollte das Passwort haben:\n"
-                     "- Mindestens 8 Zeichen\n"
-                     "- Mindestens ein Großbuchstabe\n"
-                     "- Mindestens ein Kleinbuchstabe\n"
-                     "- Mindestens eine Zahl\n"
-                     "- Mindestens eine Sonderzeichen\n",
-    "main_menu" : "\n1 - Passwort Überprüfer\n"
-                  "2 - Passwort Generator\n"
-                  "q - Programm beenden\n",
-    "wrong_input" : "\nBitte gib einen gültigen Wert ein\n",
-    "password_input" : "\nBitte geben Sie ein Passwort ein: ",
-    "success" : "\nDas Passwort ist OK!",
-    "wrong_length" : "- Zu Kurz",
-    "no_uppercase" : "- Kein Großbuchstabe enthalten",
-    "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
-    "no_digit" : "- Keine Zahl enthalten",
-    "no_special" : "- Kein Sonderzeichen enthalten",
-    "length" : "Passwortlänge(8-20): "}
-
-
-ENGLISH = {
+SENTENCES = {
+    'English': {
     "welcome" : "\nwelcome!\n",
     "requirements" : "\nThe password should have the following requirements:\n"
                      "- At least 8 characters\n"
@@ -42,7 +21,30 @@ ENGLISH = {
     "no_lowercase": "- Contains no lower case letter",
     "no_digit": "- Does not contain a number",
     "no_special": "- No special characters included",
-    "length" : "Password length (8-20): " }
+    "length" : "Password length (8-20): " 
+    },
+    'German' : {
+    "welcome" : "\nHerzlich Willkommen!\n",
+    "requirements" : "\nFolgende Anforderungen sollte das Passwort haben:\n"
+                     "- Mindestens 8 Zeichen\n"
+                     "- Mindestens ein Großbuchstabe\n"
+                     "- Mindestens ein Kleinbuchstabe\n"
+                     "- Mindestens eine Zahl\n"
+                     "- Mindestens eine Sonderzeichen\n",
+    "main_menu" : "\n1 - Passwort Überprüfer\n"
+                  "2 - Passwort Generator\n"
+                  "q - Programm beenden\n",
+    "wrong_input" : "\nBitte gib einen gültigen Wert ein\n",
+    "password_input" : "\nBitte geben Sie ein Passwort ein: ",
+    "success" : "\nDas Passwort ist OK!",
+    "wrong_length" : "- Zu Kurz",
+    "no_uppercase" : "- Kein Großbuchstabe enthalten",
+    "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
+    "no_digit" : "- Keine Zahl enthalten",
+    "no_special" : "- Kein Sonderzeichen enthalten",
+    "length" : "Passwortlänge(8-20): "
+    },
+}
 
 
 class InputError(Exception):
@@ -59,14 +61,19 @@ class InputError(Exception):
 
 
 def select_language():
-    print("Choose your language: ")
-    print("1 - English")
-    print("2 - German")
-    user_input = input()
-    if user_input not in ('1', '2'):
-        raise InputError(user_input, ' is not a valid Input')
-    
-    return user_input
+    languages = list(SENTENCES)
+    while True:
+        print("Choose you language: ")
+        for index, language in enumerate(languages, 1):
+            print(f"{index} - {language}")
+        user_input = input()
+        try:
+            index = int(user_input) - 1
+            if 0 <= index < len(languages):
+                break
+        except ValueError:
+            pass
+    return SENTENCES[languages[index]]
 
 
 def verify_password(password):
@@ -103,7 +110,7 @@ def password_generation(length, sentences):
 
             password = password + choice(all_signs)
         
-        if verify_password(password, sentences, True):
+        if verify_password(password) == []:
             break
     
     print("\n" + password + "\n")
@@ -114,49 +121,40 @@ def main():
     sentences = None
 
     # Language Menu
+    sentences = select_language()
+
+    print(sentences["welcome"])
+
+    # Main Menu
+    print(sentences["main_menu"])
+
     while True:
-        while True:
-            try:
-                if select_language() == '1':
-                    sentences = ENGLISH
-                else:
-                    sentences = GERMAN
-                break
-            except InputError:
-                print('\nPlease enter a valid Input\n')
+        user_input = input('input: ')
 
-        print(sentences["welcome"])
+        if user_input == '1':
+            message_list = verify_password(input(sentences["password_input"]))
+            for message in message_list:
+                print(sentences[message])
 
-        # Main Menu
-        print(sentences["main_menu"])
+            if message_list == []:
+                print(sentences["success"])
 
-        while True:
-            user_input = input('input: ')
+            print(sentences["main_menu"])
 
-            if user_input == '1':
-                message_list = verify_password(input(sentences["password_input"]))
-                for message in message_list:
-                    print(sentences[message])
+        elif user_input == '2':
+            while True:
+                try:
+                    length = int(input(sentences["length"]))
+                    password_generation(length, sentences)
+                    break
+                except InputError:
+                    print(sentences["wrong_input"])
 
-                if message_list == []:
-                    print(sentences["success"])
-
-                print(sentences["main_menu"])
-
-            elif user_input == '2':
-                while True:
-                    try:
-                        length = int(input(sentences["length"]))
-                        password_generation(length, sentences)
-                        break
-                    except InputError:
-                        print(sentences["wrong_input"])
-
-                print(sentences["main_menu"])
-            elif user_input == 'q':
-                break
-            else:
-                print(sentences["wrong_input"])
+            print(sentences["main_menu"])
+        elif user_input == 'q':
+            break
+        else:
+            print(sentences["wrong_input"])
 
         if user_input == "q":
             break
