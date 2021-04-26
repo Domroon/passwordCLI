@@ -63,7 +63,7 @@ def select_language():
     print("1 - English")
     print("2 - German")
     user_input = input()
-    if '1' not in user_input and '2' not in user_input:
+    if user_input not in ('1', '2'):
         raise InputError(user_input, ' is not a valid Input')
     
     return user_input
