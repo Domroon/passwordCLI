@@ -87,6 +87,26 @@ def select_main_menu(sentences):
     return user_input
 
 
+def check_password(sentences):
+    password = input(sentences["password_input"])
+    messages = verify_password(password)
+    if not messages:
+        print(sentences["success"])
+    else:
+        for message in messages:
+            print(sentences[message])
+
+
+def generate_password(sentences):
+    while True:
+        try:
+            length = int(input(sentences["length"]))
+            password_generation(length, sentences)
+            break
+        except (InputError, ValueError):
+            print(sentences["wrong_input"])
+
+
 def main():
     # Language Menu
     sentences = select_language()
