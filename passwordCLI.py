@@ -40,11 +40,12 @@ def select_language():
 
 
 def verify_password(password):
+    password_length = len(password)
     password = set(password)
     return [
         message_key
         for test_result, message_key in [
-            (len(password) >= 8, "wrong_length"),
+            (password_length >= 8, "wrong_length"),
             *(
                 (password.intersection(characters), message_key)
                 for characters, message_key in [
@@ -110,7 +111,6 @@ def generate_password(sentences):
 def main():
     # Language Menu
     sentences = select_language()
-    select_main_menu(sentences)
     print(sentences["welcome"])
 
     # Main Menu
