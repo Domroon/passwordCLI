@@ -101,7 +101,7 @@ def generate_password(sentences):
     while True:
         try:
             length = int(input(sentences["length"]))
-            password_generation(length, sentences)
+            password_generation(length)
             break
         except (InputError, ValueError):
             print(sentences["wrong_input"])
@@ -112,6 +112,18 @@ def main():
     sentences = select_language()
     select_main_menu(sentences)
     print(sentences["welcome"])
+
+    # Main Menu
+    while True:
+        user_input = select_main_menu(sentences)
+        if user_input == '1':
+            check_password(sentences)
+        elif user_input == '2':
+            generate_password(sentences)
+        elif user_input == 'q':
+            break
+        else:
+            assert False, "not possible"
 
 
 if __name__ == '__main__':
