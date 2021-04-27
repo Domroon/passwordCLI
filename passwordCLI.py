@@ -22,8 +22,9 @@ def load_languages():
 
 
 def select_language():
-    languages = list(load_languages())
     sentences = load_languages()
+    languages = list(sentences)
+    
     while True:
         print("Choose you language: ")
         for index, language in enumerate(languages, 1):
