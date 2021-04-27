@@ -77,49 +77,21 @@ def password_generation(length):
     print(f"\n{password}\n")
 
 
-def main():
-    print(type(load_languages()))
-    user_input = None
-    sentences = None
-
-    # Language Menu
-    sentences = select_language()
-
-    print(sentences["welcome"])
-
-    # Main Menu
+def select_main_menu(sentences):
     print(sentences["main_menu"])
-
     while True:
         user_input = input('input: ')
-
-        if user_input == '1':
-            message_list = verify_password(input(sentences["password_input"]))
-            for message in message_list:
-                print(sentences[message])
-
-            if message_list == []:
-                print(sentences["success"])
-
-            print(sentences["main_menu"])
-
-        elif user_input == '2':
-            while True:
-                try:
-                    length = int(input(sentences["length"]))
-                    password_generation(length)
-                    break
-                except InputError:
-                    print(sentences["wrong_input"])
-
-            print(sentences["main_menu"])
-        elif user_input == 'q':
+        if user_input in ["1", "2", "q"]:
             break
-        else:
-            print(sentences["wrong_input"])
+        print(sentences["wrong_input"])
+    return user_input
 
-        if user_input == "q":
-            break
+
+def main():
+    # Language Menu
+    sentences = select_language()
+    select_main_menu(sentences)
+    print(sentences["welcome"])
 
 
 if __name__ == '__main__':
