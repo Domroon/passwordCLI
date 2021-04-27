@@ -74,6 +74,8 @@ def password_generation(length, sentences):
         
         if verify_password(password) == []:
             break
+        else:
+            password = ""
     
     print("\n" + password + "\n")
 
