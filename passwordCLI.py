@@ -2,51 +2,6 @@ import string
 from random import choice
 import json
 
-SENTENCES = {
-    'English': {
-    "welcome" : "\nwelcome!\n",
-    "requirements" : "\nThe password should have the following requirements:\n"
-                     "- At least 8 characters\n"
-                     "- At least one capital letter\n"
-                     "- At least one lowercase letter\n"
-                     "- At least one number\n"
-                     "- At least one special character\n",
-    "main_menu" : "\n1 - Password checker\n"
-                  "2 - Password generator\n"
-                  "q - Exit program\n",
-    "wrong_input": "\nPlease enter a valid value\n",
-    "password_input": "\nPlease enter a password: ",
-    "success": "\nThe password is OK!",
-    "wrong_length": "- Too short",
-    "no_uppercase": "- No capital letter",
-    "no_lowercase": "- Contains no lower case letter",
-    "no_digit": "- Does not contain a number",
-    "no_special": "- No special characters included",
-    "length" : "Password length (8-20): " 
-    },
-    'German' : {
-    "welcome" : "\nHerzlich Willkommen!\n",
-    "requirements" : "\nFolgende Anforderungen sollte das Passwort haben:\n"
-                     "- Mindestens 8 Zeichen\n"
-                     "- Mindestens ein Großbuchstabe\n"
-                     "- Mindestens ein Kleinbuchstabe\n"
-                     "- Mindestens eine Zahl\n"
-                     "- Mindestens eine Sonderzeichen\n",
-    "main_menu" : "\n1 - Passwort Überprüfer\n"
-                  "2 - Passwort Generator\n"
-                  "q - Programm beenden\n",
-    "wrong_input" : "\nBitte gib einen gültigen Wert ein\n",
-    "password_input" : "\nBitte geben Sie ein Passwort ein: ",
-    "success" : "\nDas Passwort ist OK!",
-    "wrong_length" : "- Zu Kurz",
-    "no_uppercase" : "- Kein Großbuchstabe enthalten",
-    "no_lowercase" : "- Kein Kleinbuchstabe enthalten",
-    "no_digit" : "- Keine Zahl enthalten",
-    "no_special" : "- Kein Sonderzeichen enthalten",
-    "length" : "Passwortlänge(8-20): "
-    },
-}
-
 
 class InputError(Exception):
     """Exception raised for errors in the input.
@@ -62,19 +17,13 @@ class InputError(Exception):
 
 
 def load_languages():
-    with open('languages.json', 'r') as file:
-        data = json.load(file)
-    
-    # convert data to right dictionary-structure
-    selected_languages = ["English", "German"]
-    for language in selected_languages:
-        languages = dict.fromkeys(selected_languages, data[language])
-        
-    return languages
+    with open('languages.json', 'rb') as file:
+        return json.load(file)
 
 
 def select_language():
-    languages = list(SENTENCES)
+    languages = list(load_languages())
+    sentences = load_languages()
     while True:
         print("Choose you language: ")
         for index, language in enumerate(languages, 1):
@@ -86,7 +35,7 @@ def select_language():
                 break
         except ValueError:
             pass
-    return SENTENCES[languages[index]]
+    return sentences[languages[index]]
 
 
 def verify_password(password):
@@ -130,7 +79,7 @@ def password_generation(length, sentences):
 
 
 def main():
-    print(load_languages())
+    print(type(load_languages()))
     user_input = None
     sentences = None
 
