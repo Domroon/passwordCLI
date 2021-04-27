@@ -1,5 +1,5 @@
 import string
-from random import choice
+from random import choices
 import json
 
 
@@ -59,26 +59,22 @@ def verify_password(password):
     ]
 
 
-def password_generation(length, sentences):
-    if length < 8 or length > 20:
+def password_generation(length):
+    ALL_SIGNS = (string.ascii_uppercase
+        + string.ascii_lowercase
+        + string.digits
+        + string.punctuation
+    )
+
+    if not 8 <= length <= 20:
         raise InputError(length, ' is not a valid Input')
 
-    password = ""
     while True:
-        for i in range(length):
-            all_signs = string.ascii_uppercase
-            all_signs += string.ascii_lowercase
-            all_signs += string.digits
-            all_signs += string.punctuation
-
-            password = password + choice(all_signs)
-        
+        password = "".join(choices(ALL_SIGNS, k=length))
         if verify_password(password) == []:
             break
-        else:
-            password = ""
-    
-    print("\n" + password + "\n")
+            
+    print(f"\n{password}\n")
 
 
 def main():
@@ -111,7 +107,7 @@ def main():
             while True:
                 try:
                     length = int(input(sentences["length"]))
-                    password_generation(length, sentences)
+                    password_generation(length)
                     break
                 except InputError:
                     print(sentences["wrong_input"])
